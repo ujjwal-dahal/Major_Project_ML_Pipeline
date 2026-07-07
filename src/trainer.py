@@ -3,58 +3,126 @@
 Model Trainer
 ====================================================
 
-Yo module le ML model train garcha.
-Current model = XGBoost
+Yo module le selected ML model train garcha.
 
-Later SVM use garna yo file matra
-change gare pugcha.
+Supported Models
+
+- XGBoost
+- SVM
+- Random Forest
 """
 
-from xgboost import XGBClassifier
-
+from config import MODEL_NAME
 from config import RANDOM_STATE
 
+# XGBoost
+from xgboost import XGBClassifier
+
+# SVM
+from sklearn.svm import SVC
+
+# Random Forest
+from sklearn.ensemble import RandomForestClassifier
 
 
-def train_xgboost(X_train, y_train):
+def train_model(X_train, y_train):
     """
-    XGBoost model train garne function
+    Config file bata model select garera
+    automatically train garne function
     """
 
-    print("\nCreating XGBoost Model...")
+    # =====================================
+    # XGBoost
+    # =====================================
 
-    # XGBoost model create gareko
-    model = XGBClassifier(
+    if MODEL_NAME == "XGBoost":
 
-        # Total decision trees
-        n_estimators=300,
+        print("\nCreating XGBoost Model...")
 
-        # Maximum tree depth
-        max_depth=6,
+        model = XGBClassifier(
 
-        # Learning speed
-        learning_rate=0.05,
+            n_estimators=300,
 
-        # Random sample use garne
-        subsample=0.8,
+            max_depth=6,
 
-        # Random feature selection
-        colsample_bytree=0.8,
+            learning_rate=0.05,
 
-        # Same result repeat hos
-        random_state=RANDOM_STATE,
+            subsample=0.8,
 
-        # CPU ko sabai core use garne
-        n_jobs=-1,
+            colsample_bytree=0.8,
 
-        # Binary classification evaluation
-        eval_metric="logloss"
-    )
+            random_state=RANDOM_STATE,
+
+            n_jobs=-1,
+
+            eval_metric="logloss"
+
+        )
+
+    # =====================================
+    # SVM
+    # =====================================
+
+    elif MODEL_NAME == "SVM":
+
+        print("\nCreating SVM Model...")
+
+        model = SVC(
+
+            kernel="rbf",
+
+            C=1.0,
+
+            gamma="scale",
+
+            probability=True,
+
+            random_state=RANDOM_STATE
+
+        )
+
+    # =====================================
+    # Random Forest
+    # =====================================
+
+    elif MODEL_NAME == "RandomForest":
+
+        print("\nCreating Random Forest Model...")
+
+        model = RandomForestClassifier(
+
+            n_estimators=300,
+
+            max_depth=None,
+
+            random_state=RANDOM_STATE,
+
+            n_jobs=-1
+
+        )
+
+    # =====================================
+    # Invalid Model
+    # =====================================
+
+    else:
+
+        raise ValueError(
+
+            f"{MODEL_NAME} is not supported."
+
+        )
 
     print("Training Started...")
 
     # Model train gareko
-    model.fit(X_train, y_train)
+    model.fit(
+
+        X_train,
+
+        y_train
+
+    )
 
     print("Training Completed.")
 

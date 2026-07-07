@@ -29,7 +29,7 @@ DEV_CSV = "data/features_dev.csv"
 
 # Current model name
 # XGBoost / SVM / RandomForest / LightGBM
-MODEL_NAME = "SVM"
+MODEL_NAME = "RandomForest"
 
 # Model save file name
 MODEL_FILE_NAME = f"{MODEL_NAME.lower()}_model.joblib"
@@ -92,7 +92,8 @@ DPI = 300
 # XGBoost lai scaling chaina
 # SVM ko lagi True garne
 # XGBoost ko lagi scaling OFF cha
-USE_SCALER = True
+# Random Forest ko lagi scaling OFF cha
+USE_SCALER = False
 
 # =====================================
 # Train Validation Split

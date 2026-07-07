@@ -50,7 +50,7 @@ from preprocessing import scale_features
 
 
 # Training Function
-from trainer import train_xgboost
+from trainer import train_model
 
 
 # Evaluator Function 
@@ -206,19 +206,19 @@ def main():
     # ==========================================
 
     print_status("Preprocessing Completed Successfully")
-    print_status("Ready for XGBoost Model Training...")
+    print_status(f"Ready for {MODEL_NAME} Model Training...")
     
     # ==========================================
     # Model Training
     # ==========================================
 
-    print_status("Training XGBoost Model...")
+    print_status(f"Training {MODEL_NAME} Model...")
 
     # XGBoost model train gareko
-    model = train_xgboost(
-        X_train,
-        y_train
-    )
+    model = train_model(
+    X_train,
+    y_train
+)
 
     print_status("Model Training Completed")
     
@@ -341,9 +341,11 @@ def main():
     )
 
     # Correlation heatmap
+    # Original DataFrame use gareko because scaling pachi
+    # X_train numpy array huna sakcha
     plot_correlation_heatmap(
 
-        X_train
+        X_train_full
 
     )
 

@@ -14,6 +14,11 @@ generate garcha.
 
 import os
 
+import matplotlib
+
+# GUI backend use nagari image file matra save garne
+matplotlib.use("Agg")
+
 import matplotlib.pyplot as plt
 
 import seaborn as sns
